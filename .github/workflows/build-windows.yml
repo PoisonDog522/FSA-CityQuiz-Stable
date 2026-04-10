@@ -24,10 +24,10 @@ jobs:
 
       - name: Build EXE
         run: |
-          pyinstaller --windowed --onefile ^
-          --name "FSA CityQuiz" ^
-          --add-data "FSA Cities.csv;." ^
-          --add-data "State Lines.png;." ^
+          pyinstaller --windowed --onefile `
+          --name "FSA CityQuiz" `
+          --add-data "FSA Cities.csv;." `
+          --add-data "State Lines.png;." `
           "FSA Cities.py"
 
       - name: Zip the EXE
