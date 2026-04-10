@@ -32,7 +32,7 @@ jobs:
 
       - name: Zip the EXE
         run: |
-          powershell Compress-Archive -Path "dist\FSA CityQuiz.exe" -DestinationPath "FSA-CityQuiz-windows-latest.zip"
+          Compress-Archive -LiteralPath "dist\FSA CityQuiz.exe" -DestinationPath "FSA-CityQuiz-windows-latest.zip"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
