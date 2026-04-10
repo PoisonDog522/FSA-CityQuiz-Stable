@@ -1,0 +1,41 @@
+name: Build Windows EXE
+
+on:
+  workflow_dispatch:   # manual run
+  push:
+    tags:
+      - 'v*'           # runs when new version created
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install dependencies
+        run: pip install pyinstaller matplotlib numpy
+
+      - name: Build EXE
+        run: |
+          pyinstaller --windowed --onefile ^
+          --name "FSA CityQuiz" ^
+          --add-data "FSA Cities.csv;." ^
+          --add-data "State Lines.png;." ^
+          "FSA Cities.py"
+
+      - name: Zip the EXE
+        run: |
+          powershell Compress-Archive -Path "dist\FSA CityQuiz.exe" -DestinationPath "FSA-CityQuiz-windows-latest.zip"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: FSA-CityQuiz-Windows
+          path: FSA-CityQuiz-windows-latest.zip
