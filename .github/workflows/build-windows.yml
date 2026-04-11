@@ -1,10 +1,12 @@
 name: Build Windows EXE
 
 on:
-  workflow_dispatch:   # manual run
+  workflow_dispatch:
   push:
+    branches:
+      - main
     tags:
-      - 'v*'           # runs when new version created
+      - 'v*'
 
 jobs:
   build-windows:
@@ -47,3 +49,5 @@ jobs:
           files: FSA-CityQuiz-windows-latest.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+          
